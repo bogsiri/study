@@ -1,0 +1,10 @@
+구문오류(syntax Error)
+
+의미상오류(Semantic Error)
+
+오류를 줄이는 프로그래밍 습관
+ - 조건식에서 상수를 먼저 사용하는 습관 
+	1) if(data = 3) 보다는 if (3 = data)
+	2) data + 4 + 7 보다는 4 + 7 + data  이 기계어 번역시 연산을 줄여줌
+	3) if(data == 3); 보다는 if(data == 3) {
+	
