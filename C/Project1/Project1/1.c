@@ -29,19 +29,67 @@ int Test(int a, int b)
 	return 1;
 }
 
-
-
-int get_Lchildindex(int i) {
-	return 2 * i;
+void Swap(int* in1, int* in2)
+{
+	int temp;
+	temp = *in1;
+	*in1 = *in2;
+	*in2 = temp;
 }
-int get_Rchildindex(int i) {
-	return 2 * i + 1;
+void Swapconst(int* const in1, int* const in2)
+{
+	int temp;
+	temp = *in1;
+	//in1 = in2;
+	*in2 = temp;
 }
 
-
+void FuncStatic(void)
+{
+	static int count = 0;
+	count++;
+	printf("static count = %d\n", count);
+}
 
 int main(int argc, char *argv[])
 {
+	FuncStatic();
+	FuncStatic();
+	FuncStatic();
+	FuncStatic();
+
+	const int cn = 1;
+	const int* const cnPtr = &cn;
+	//cn = 2;
+	//printf("g_init = %d\n", g_init);
+	int ccc=0;
+	int* cptr = &ccc;
+	const int* cptr2 = &ccc;
+	int* const ccptr = &ccc;
+	*cptr = 1;
+	cptr =(int *)0x00000012;
+	*ccptr = 1;
+	//*cptr2 = 2;
+
+
+	int a1;
+	int* a1Ptr;
+	a1Ptr = &a1;
+	*a1Ptr = 1234;
+
+	
+	short* sPtr;
+	sPtr = (short*)0x0000006c;
+
+	int* nPtr;
+	nPtr = (int*)0x0000006c;
+
+	int in1 = 1;
+	int in2 = 2;
+	printf("swap = %d, %d\n", in1, in2);
+	Swap(&in1, &in2);
+	printf("swap = %d, %d\n", in1, in2);
+
 	Mv(1, 'A', 'B', 'C');
     printf("%d\n", Facrec(3));
 
@@ -76,6 +124,9 @@ int main(int argc, char *argv[])
 
 
 	
+	
+	
+
 	return 0;
 }
 

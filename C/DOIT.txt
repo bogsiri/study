@@ -7,4 +7,45 @@
 	1) if(data = 3) 보다는 if (3 = data)
 	2) data + 4 + 7 보다는 4 + 7 + data  이 기계어 번역시 연산을 줄여줌
 	3) if(data == 3); 보다는 if(data == 3) {
+
+
+
+비트연산자
+ - & | ^ ~
+ - 비트 AND연산자를 통해 특정비트를 0으로 셋팅하는거
+ - 비트 OR 연산자를 통해 특정비트를 1로 셋팅하는거
+ - 비트 AND 연산자를 통해 특정 번째 비트가 0 인지 1인지 알아보는거 -> 1byte를 bit로 나타내는거
+ - A - => A + (~b) + 1
+
+문자/문자열
+ - 문자열 끝은 0 EOL
+ - GetstringLength()함수 만들기
+ 	int count++
+	while(data[count] != 0) 
+		count++;
+	return;
+ - strcat, strcpy 함수 만들기
+ 
+ 
 	
+지역변수
+ - 스스로 초기화되지 않는다
+ 
+전역변수
+ - 초기화가 없으면 0 으로 자동 초기화됨
+ - 함수가 독립성을 잃어버림(함수가 전역 변수에 종속성이 된다)
+ - 지역변수와 이름이 같다면, 함수내에서 지역변수가 우선이된다
+ - A.c 전역 변수가 설정되어있다면 B.c 에서 extern 을 붙여서 선언해 준다
+ - A.C      				B.C
+    int g_data1 = 0;	int g_data1;			-> 에러
+	int g_data2 = 0;	extern int g_data2;  	-> 정상
+						extern int g_data3;  	-> 에러
+						extern int g_data4 = 0;	-> 오류 아님
+	int g_data5 = 0;	extern int g_data5 = 0;	-> 에러
+
+ - static 은 해당 소스 파일안에 전역으로 설정하면 해당 소스에서만 쓸수있다
+ - static 은 특정 함수안에서 선언, 초기화될수 있고, 프로그램과 생명주기를 같이한다. 한번만 초기화되고 값은 유지
+
+const 문법적인 오류를 막아주기 위해서 
+ - const int i = 1; 
+ - const int* const nPtr = &i;
