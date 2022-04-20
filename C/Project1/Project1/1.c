@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "BinaryTree.h"
 
 #define POW_VALUE(a)	(a * a)
+
 
 int Facrec(int n)
 {
@@ -51,8 +53,69 @@ void FuncStatic(void)
 	printf("static count = %d\n", count);
 }
 
+int GetStringLength(char data[])
+{
+	int count = 0;
+
+	while(data[count]) 
+		count++;
+
+	return count;
+}
+
+char* GetStringCat(char* first, char* second)
+{
+	int len_total = 0;
+	int index = 0;
+
+	int len_dst = 0;
+	int len_src = 0;
+	int count_second = 0;
+
+	
+	len_dst = GetStringLength(first);
+	len_src = GetStringLength(second);
+	len_total = len_dst + len_src + 1;
+
+	char* cArray = (char*)malloc(len_total);
+	for (index = 0; index < len_dst; index++)
+		cArray[index] = first[index];
+
+	for(index; index<len_total; index++, count_second++)
+		cArray[index] = second[count_second];
+		
+	return cArray;
+}
+
+int StringCopy(char* dst, char* src) {
+	int len_dst = GetStringLength(src);
+	if (len_dst == 0) return -1;
+	int index = 0;
+	while (src[index]) {
+		dst[index] = src[index];
+		index++;
+	}
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
+	char str[] = "test";
+	printf("strlen = %d\n", GetStringLength(str));
+	
+	char str1[] = "1234";
+	char str2[] = "5678";
+
+	printf("strcat = %s\n", GetStringCat(str1, str2));
+
+	char str3[10] = { 0, };
+	char str4[] = "okokokok";
+	if (!StringCopy(str3, str4))
+		printf("strcpy = %s\n", str3);
+
+
+
+
 	FuncStatic();
 	FuncStatic();
 	FuncStatic();
