@@ -97,9 +97,86 @@ int StringCopy(char* dst, char* src) {
 	}
 	return 0;
 }
+void Do15_1(void)
+{
+	char data[5];
+	data[1] = 5;	
+	*(data + 1) = 5;	//  위와 같다
+
+	char ch;
+	char* p = NULL;
+	p = &ch;
+	p[0] = 3;
+
+	
+
+	int dddd[2] = { 0x12345678, 0x77777777 };
+	printf("%x,%x\n", *(dddd + 0), *(dddd + 1));
+	*((char *)dddd+1) = 0x22;
+	printf("%x,%x\n", *(dddd + 0), *(dddd + 1));
+
+}
+void Do15_2(void)
+{
+	char ch[4];
+	char* point;
+	point = &ch[0];	//  &ch[0] -> ch[0] = *(ch + 0)
+	point = &*(ch + 0);	//  &* 는 사라짐
+	point = ch;
+
+	//char* p = 1;	// 1번지로 초기화
+}
+
+void Do15_3(void)
+{
+	//  특정위치를 가리키는 곳을 반복작업을 할때
+	//  배열을 바로 사용하는 것보다 특정위치를 가지고 있는 포인터를 가지고 작업하는게 낫다
+	char data[4] = { 1,2,3,4 };
+
+	int sum1 = 0, sum2 = 0, sum3 = 0;
+	int index;
+	int select = 2;
+	for (index = 0; index < 10; index++)
+		sum1 += data[select];	//  --> sum += *(data + select);  낭비
+	printf("sum = %d\n", sum1);
+
+	char* p;
+	p = data + select;
+	for (index = 0; index < 10; index++)
+		sum2 += *p;
+	printf("sum = %d\n", sum2);
+
+	char* pp;
+	pp = &data[0];	// pp = data;
+	for (index = 0; index < 4; index++){
+		sum3 += *pp;	//  sum3 += *(pp + index);
+		pp++;
+	}		
+	printf("sum = %d\n", sum3);	
+}
+void Do15_4(void){
+	char* p[100];
+	int n;
+	p[0] = &n;
+	*(p[0]) = 0;
+	*p[0] = 0; //  우선순위가 []가 * 보다 높다
+
+	char* p1[5];
+	char(*p2)[5];
+	char data[3][5] = { 0 };
+
+
+
+
+}
 
 int main(int argc, char *argv[])
 {
+	Do15_1();
+	Do15_2();
+	Do15_3();
+	Do15_4();
+
 	char str[] = "test";
 	printf("strlen = %d\n", GetStringLength(str));
 	
