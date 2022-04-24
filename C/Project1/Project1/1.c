@@ -157,21 +157,35 @@ void Do15_3(void)
 void Do15_4(void){
 	char* p[100];
 	int n;
-	p[0] = &n;
+	p[0] = (char *)&n;
 	*(p[0]) = 0;
 	*p[0] = 0; //  우선순위가 []가 * 보다 높다
 
-	char* p1[5];
-	char(*p2)[5];
+	//char* p1[5];
+	//char(*p2)[5];
 	char data[3][5] = { 0 };
-
-
-
-
 }
+
+void Do18_5(void)
+{
+	struct node {
+		int a;
+		struct node * p;
+	};
+
+	struct node *NODE;
+	NODE = NULL;// (struct node*)malloc(sizeof(struct node*));
+}
+
 
 int main(int argc, char *argv[])
 {
+	char data[5] = { 'a','b','c','d' };
+	char *p1 = data, *p2 = data, data1, data2;
+
+	
+	enum M{A,B,C,D};
+	Do18_5();
 	Do15_1();
 	Do15_2();
 	Do15_3();
