@@ -230,7 +230,21 @@ const 문법적인 오류를 막아주기 위해서
 	.연결리스트의 전체 노드 제거하기
 	.연결리스트의 전체 노드 제거하기(뒤에서부터)
 	
-	
+#define MAXCOUNT 100
+typedef unsigned char UC;
+#ifndef _H_
+#define _H_
+#endif
+
+enum MY = {A,B,C,D}
+
+#ifdef MYDBG
+	testcode
+#endif
+
+
+*p++ ===>  *p 하고 p++
+*++p
 20.1 함수 포인터
  - 함수 원형을 사용해서 포인터를 선언
 	. int (*p)(int, int);
