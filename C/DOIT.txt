@@ -37,14 +37,16 @@
  - 지역변수와 이름이 같다면, 함수내에서 지역변수가 우선이된다
  - A.c 전역 변수가 설정되어있다면 B.c 에서 extern 을 붙여서 선언해 준다
  - A.C      				B.C
-    int g_data1 = 0;	int g_data1;			-> 에러
-	int g_data2 = 0;	extern int g_data2;  	-> 정상
+    int g_data1 = 0;	int g_data1;			-> 정상
+	int g_data2 = 0;	extern int g_data2;  	-> 정상						
+	int g_data2 = 0;	extern int g_data2 = 0;	-> 에러
 						extern int g_data3;  	-> 에러
-						extern int g_data4 = 0;	-> 오류 아님
-	int g_data5 = 0;	extern int g_data5 = 0;	-> 에러
+						extern int g_data4 = 0;	-> 정상
 
- - static 은 해당 소스 파일안에 전역으로 설정하면 해당 소스에서만 쓸수있다
- - static 은 특정 함수안에서 선언, 초기화될수 있고, 프로그램과 생명주기를 같이한다. 한번만 초기화되고 값은 유지
+	
+
+ - static 은 해당 소스 파일안에 전역으로 설정하면 해당 소스에서만 쓸수있다(외부 정적 변수)
+ - static 은 특정 함수안에서 선언, 초기화될수 있고, 프로그램과 생명주기를 같이한다. 한번만 초기화되고 값은 유지 (내부 정적 변수)
 
 const 문법적인 오류를 막아주기 위해서 
  - const int i = 1; 
@@ -67,7 +69,7 @@ const 문법적인 오류를 막아주기 위해서
  - 0x0412 를 0x00000066번지에 2바이트 크기로 대입하라 (mov word ptr[00000066h], 0412h
 	 = short int data; data = 0x0412;
  - 직접지정방식의 한계가 있어서 포인터가 필요(매개변수로 넘길순 있지만, 한번에 한개(리턴문이 한개만 지원))
- - 포인터 변수는 32bit프로그래밍에서는 무조건 4byte(64bit 6byte)
+ - 포인터 변수는 32bit프로그래밍에서는 무조건 4byte(64bit 8byte)
  - short* 							ptr 		= 	0x0000006C;
    포인터가가리키는 곳의 데이터 할당 크기 		포인터변수			포인터가 가리키는 주소
  - int n; 
