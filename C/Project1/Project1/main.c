@@ -209,6 +209,7 @@ void ArrayWithStructure(void)
 struct s {
 	int data1;
 	int data2;
+	int sum;
 };
 void Swap2(struct s *stinput)
 {
@@ -217,11 +218,49 @@ void Swap2(struct s *stinput)
 	stinput->data1 = stinput->data2;
 	stinput->data2 = temp;
 }
+void Swap3(struct s *s1, struct s *s2)
+{
+	int temp;
+	temp = s1->data1;
+	s1->data1 = s2->data1;
+	s2->data1 = temp;
+
+	temp = s1->data2;
+	s1->data2 = s2->data2;
+	s2->data2 = temp;
+
+}
 void ArrayWithStructure2(void) {
 	struct s ss = { 1,2 };
 	printf("ArrayWithStructure2 %d %d\n", ss.data1, ss.data2);
 	Swap2(&ss);
 	printf("ArrayWithStructure2 %d %d\n", ss.data1, ss.data2);
+}
+void ArrayWithStructure3(void) {
+	struct s s1 = { 1,2 };
+	struct s s2 = { 3,4 };
+
+	printf("ArrayWithStructure3_be %d %d\n", s1.data1, s1.data2);
+	printf("ArrayWithStructure3_be %d %d\n", s2.data1, s2.data2);
+	Swap3(&s1, &s2);
+
+	printf("ArrayWithStructure2_af %d %d\n", s1.data1, s1.data2);	
+	printf("ArrayWithStructure2_af %d %d\n", s2.data1, s2.data2);
+}
+void StructInStruct(void) {
+	struct st {
+		int x;
+		int y;
+	};
+
+	struct st2 {
+		int x;
+		int y;
+		struct st s;
+	};
+
+	struct st s1 = { 1,2 };
+	struct st2 s2 = {11,}
 }
 
 int main(void)
@@ -246,12 +285,21 @@ int main(void)
 	unsigned int data = 0x12345678;
 	GetData(&data, 4);
 	//ScanfTest();
-
+	
 	ArraynPointerExpression();
 	ArrayWithPointer();
 	PointerArrayDefine();
 	ArrayWithStructure();
 	ArrayWithStructure2();
+
+	struct s s3;
+	s3 = StructTest();
+	printf("StructTest return s3 = %d, %d\n", s3.data1, s3.data2);
+
+	ArrayWithStructure3();
+
+	
+	
 
 	return 0;
 }
