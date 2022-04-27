@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 
+
 void WhatBit(int input, char bitnum)	//  특정 비트번째가 1인지 아닌지
 {
 	char mask = 0;
@@ -260,9 +261,78 @@ void StructInStruct(void) {
 	};
 
 	struct st s1 = { 1,2 };
-	struct st2 s2 = {11,}
+	struct st2 s2 = { 11,22 };
+	s2.s = s1;
+	printf("StructInStruct = %d, %d\n", s2.s.x, s2.s.y);
+}
+void StructTEST(void) {
+	typedef struct _data {
+		int x;
+		int y;
+
+	}DATA;
+	printf("%d", __LINE__);
+
+	//DATA d;
+
 }
 
+typedef struct _Node {
+	int x;
+	struct _Node *nextNode;
+}Node;
+
+void MakeLinkList(Node * node, int input)
+{
+	if (node == NULL)
+		return;
+
+	Node *NewNode = (Node *)malloc(sizeof(Node));
+	if(NewNode != NULL)
+		memset(NewNode, 0, sizeof(Node));	
+	node->x = input;
+	node->nextNode = NewNode;
+
+	free(NewNode);
+	return;
+}
+
+void AddLinkList(Node * node, int input)
+{
+	if (NULL == node)
+		return;
+
+	while ( NULL != node->nextNode)
+		node = node->nextNode;
+
+	MakeLinkList(node, input);
+	
+}
+void PrintLinkList(Node *node) {
+	if (NULL == node)
+		return;
+
+	printf("PrintLinkList = ");
+	while (NULL != node->nextNode) {
+		printf("%d ", node->x);
+		node = node->nextNode;
+	}
+	printf("\n");
+}
+void LinkedList(void)
+{
+	Node *rNode = (Node *)malloc(sizeof(Node));
+	memset(rNode, 0, sizeof(Node));
+	AddLinkList(rNode, 1);
+	AddLinkList(rNode, 2);
+	AddLinkList(rNode, 3);
+	AddLinkList(rNode, 4);
+	AddLinkList(rNode, 5);
+
+	PrintLinkList(rNode);
+	
+
+}
 int main(void)
 {
 	WhatBit(0xFF, 3);
@@ -291,15 +361,11 @@ int main(void)
 	PointerArrayDefine();
 	ArrayWithStructure();
 	ArrayWithStructure2();
-
-	struct s s3;
-	s3 = StructTest();
-	printf("StructTest return s3 = %d, %d\n", s3.data1, s3.data2);
-
 	ArrayWithStructure3();
-
+	StructInStruct();
+	StructTEST();
 	
-	
+	LinkedList();
 
 	return 0;
 }
