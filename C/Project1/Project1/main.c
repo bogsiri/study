@@ -271,68 +271,119 @@ void StructTEST(void) {
 		int y;
 
 	}DATA;
-	printf("%d", __LINE__);
+	printf("%d\n", __LINE__);
+	printf("%d\n", __TIME__);
+	printf("%d\n", __DATE__);
 
 	//DATA d;
 
 }
-
-typedef struct _Node {
+typedef struct _node {
 	int x;
-	struct _Node *nextNode;
+	struct _node *pNextNode;
 }Node;
 
-void MakeLinkList(Node * node, int input)
-{
-	if (node == NULL)
-		return;
+void MakeList(Node **ppNode, Node **ppTNode, int input)
+{	
+	if (*ppNode == NULL) {
+		Node *pRootNode = (Node *)malloc(sizeof(Node));
+		if (pRootNode == NULL)
+			return;
+		memset(pRootNode, 0, sizeof(Node));
+		pRootNode->x = input;
+		pRootNode->pNextNode = NULL;
+		*ppNode = pRootNode;
 
-	Node *NewNode = (Node *)malloc(sizeof(Node));
-	if(NewNode != NULL)
-		memset(NewNode, 0, sizeof(Node));	
-	node->x = input;
-	node->nextNode = NewNode;
+		*ppTNode = pRootNode;
+	}
+	else
+	{
+		/*Node *pNowNode = NULL;
+		pNowNode = *ppNode;
 
-	free(NewNode);
+		while(pNowNode->pNextNode)
+		{
+			pNowNode = pNowNode->pNextNode;
+		}
+		Node *pAddNode = NULL;
+		pAddNode = (Node *)malloc(sizeof(Node));
+
+		pAddNode->x = input;
+		pAddNode->pNextNode = NULL;
+
+		pNowNode->pNextNode = pAddNode;*/
+
+		Node *pTailNode = NULL;
+		pTailNode = *ppTNode;
+
+		Node *pAddNode = (Node *)malloc(sizeof(Node));
+		pAddNode->x = input;
+		pAddNode->pNextNode = NULL;
+
+		pTailNode->pNextNode = pAddNode;
+		*ppTNode = pAddNode;
+	}
 	return;
 }
 
-void AddLinkList(Node * node, int input)
+void DelList(Node **pRootNode, int find_num)
 {
-	if (NULL == node)
-		return;
+	if (NULL == *pRootNode) return;
+	Node *pNode = NULL;
+	pNode = *pRootNode;
 
-	while ( NULL != node->nextNode)
-		node = node->nextNode;
-
-	MakeLinkList(node, input);
+	Node *pSaveNode = NULL;
 	
-}
-void PrintLinkList(Node *node) {
-	if (NULL == node)
+	if (find_num == pNode->x) {
+		*pRootNode = pNode->pNextNode;
+		free(pNode);
 		return;
+	}
 
-	printf("PrintLinkList = ");
-	while (NULL != node->nextNode) {
-		printf("%d ", node->x);
-		node = node->nextNode;
+	while(pNode->pNextNode)
+	{
+		pSaveNode = pNode;
+		pNode = pNode->pNextNode;
+		if (find_num == pNode->x) {
+			pSaveNode->pNextNode = pNode->pNextNode;
+			free(pNode);
+			return;
+		}
+	}
+}
+void PrintList(Node *pNode)
+{
+	if (NULL == pNode) return;
+	printf("LinkedList: ");
+	while (1)
+	{
+		printf("%d ", pNode->x);
+		if (NULL == pNode->pNextNode) break;
+		pNode = pNode->pNextNode;
 	}
 	printf("\n");
+	return;
 }
-void LinkedList(void)
+void LinkedList()
 {
-	Node *rNode = (Node *)malloc(sizeof(Node));
-	memset(rNode, 0, sizeof(Node));
-	AddLinkList(rNode, 1);
-	AddLinkList(rNode, 2);
-	AddLinkList(rNode, 3);
-	AddLinkList(rNode, 4);
-	AddLinkList(rNode, 5);
+	Node *pNode = NULL;
+	Node *pTailNode = NULL;
+	int array[2] = { 0,1 };
+	MakeList(&pNode, &pTailNode, *array);
+	MakeList(&pNode, &pTailNode, *(array+1));
+	MakeList(&pNode, &pTailNode, 2);
+	//MakeList(&pNode, 3);
+	//MakeList(&pNode, 4);
+		
+	PrintList(pNode);
+	DelList(&pNode, 2);
+	PrintList(pNode);
 
-	PrintLinkList(rNode);
+
 	
-
 }
+
+
 int main(void)
 {
 	WhatBit(0xFF, 3);
@@ -367,5 +418,5 @@ int main(void)
 	
 	LinkedList();
 
-	return 0;
+ 	return 0;
 }
