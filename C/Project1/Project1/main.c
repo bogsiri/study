@@ -377,12 +377,72 @@ void LinkedList()
 		
 	PrintList(pNode);
 	DelList(&pNode, 2);
-	PrintList(pNode);
-
-
-	
+	PrintList(pNode);	
 }
+//
+//int g_po = 0;
+//void StackPush(char *pArray, int input) {
+//	*(pArray + g_po) = input;
+//	g_po++;
+//}
+//void PrintStack(char *pArray) {
+//	int i;
+//	printf("PrintStack : ");
+//	for (i = 0; i < g_po; i++)
+//		printf("%d ", *(pArray + i));
+//	printf("\n");
+//}
+//void StackPop(char *pArray) {
+//	*(pArray + g_po - 1) = 0;
+//	g_po--;
+//}
+//void Stack(void) {
+//
+//	char array[10] = {0,};
+//	StackPush(array, 1);
+//	StackPush(array, 2);
+//	PrintStack(array);
+//	StackPop(array);
+//	PrintStack(array);
+//	return;
+//}
+//
 
+void StackPush(int *pArray, int **pTop, int input) {
+	int *pT = NULL;
+	pT = *pTop;
+
+	*(pArray + *pT) = input;
+	(*pT)++;
+	*pTop = pT;
+}
+void StackPrint(int *pArray, int nowTop)
+{
+	int i = 0;
+	printf("PrintStack : ");
+	for (i = 0; i < nowTop; i++)
+		printf("%d ", *(pArray+i));
+	printf("\n");
+}
+void StackPop(int *pArray, int **pTop)
+{
+	int *pT = *pTop;
+	*(pArray + (*pT)) = 0;
+	*pT = *pT - 1 ;
+	*pTop = pT;
+}
+void Stack(void) {
+	int *pTop = NULL;
+	int nTop = 0;
+	pTop = &nTop;
+	int Array[10] = { 0, };
+
+	StackPush(Array, &pTop, 1);
+	StackPush(Array, &pTop, 2);
+	StackPrint(Array, nTop);
+	StackPop(Array, &pTop);
+	StackPrint(Array, nTop);
+}
 
 int main(void)
 {
@@ -417,6 +477,7 @@ int main(void)
 	StructTEST();
 	
 	LinkedList();
+	Stack();
 
  	return 0;
 }
