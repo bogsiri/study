@@ -442,6 +442,11 @@ void Stack(void) {
 	StackPrint(Array, nTop);
 	StackPop(Array, &pTop);
 	StackPrint(Array, nTop);
+
+	char a[4] = { 0x1,0x2,0x3,0x4 };
+	char *p = a;
+	*(short *)p = 0x1234;
+	printf("%x\n", *p);
 }
 
 int main(void)
