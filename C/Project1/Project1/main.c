@@ -2,10 +2,7 @@
 #define	_CRT_SECURE_NO_WARNINGS
 #endif
 
-
-#include <stdio.h>
-
-
+#include "BinaryTreeArray.h"
 
 void WhatBit(int input, char bitnum)	//  특정 비트번째가 1인지 아닌지
 {
@@ -39,7 +36,7 @@ int GetStrlen(const char input[])	//  문자열길이 구하기
 	
 	return count;
 }
-void strcat(char strDestination[], const char strSource[]) {	//  문자열 붙이기
+void strcat2(char strDestination[], const char strSource[]) {	//  문자열 붙이기
 	
 	int count_dst = GetStrlen(strDestination);
 	int count_src = GetStrlen(strSource);
@@ -50,7 +47,7 @@ void strcat(char strDestination[], const char strSource[]) {	//  문자열 붙이기
 	}	
 	return;
 }
-void strcpy(char strDestination[], const char strSource[])	//  문자열 복사하기
+void strcpy2(char strDestination[], const char strSource[])	//  문자열 복사하기
 {
 	int count_dst = GetStrlen(strDestination);
 	int count_src = GetStrlen(strSource);
@@ -271,9 +268,9 @@ void StructTEST(void) {
 		int y;
 
 	}DATA;
-	printf("%d\n", __LINE__);
-	printf("%d\n", __TIME__);
-	printf("%d\n", __DATE__);
+	// printf("%d\n", __LINE__);
+	//printf("%d\n", __TIME__);
+	//printf("%d\n", __DATE__);
 
 	//DATA d;
 
@@ -448,6 +445,23 @@ void Stack(void) {
 	*(short *)p = 0x1234;
 	printf("%x\n", *p);
 }
+void BinaryTreeArray(void)
+{
+	NODE n1 = MakeRoot('1');
+	NODE n2 = MakeLChild(n1, '2');
+	NODE n3 = MakeRChild(n1, '3');
+	NODE n4 = MakeLChild(n2, '4');
+	NODE n5 = MakeRChild(n2, '5');
+	NODE n6 = MakeLChild(n3, '6');
+	NODE n7 = MakeRChild(n3, '7');
+
+	PreOrder(n1);
+	printf("\n");
+	InOrder(n1);
+	printf("\n");
+	PostOrder(n1);
+	printf("\n");
+}
 
 int main(void)
 {
@@ -455,10 +469,10 @@ int main(void)
 	ByteToBit(65535, 16);
 	printf("\nGetStrlen = %d\n", GetStrlen("abc"));
 	char strDst[20] = "abc"; char strSrc[10] = "fff";
-	strcat(strDst, strSrc);
-	printf("strcat = %s\n", strDst);
-	strcpy(strDst, strSrc);
-	printf("strcpy = %s\n", strDst);
+	strcat2(strDst, strSrc);
+	printf("strcat2 = %s\n", strDst);
+	strcpy2(strDst, strSrc);
+	printf("strcpy2 = %s\n", strDst);
 	printf("g_init1 = %d\n", g_init1);
 	TF_const();
 	
@@ -483,6 +497,7 @@ int main(void)
 	
 	LinkedList();
 	Stack();
+	BinaryTreeArray();
 
  	return 0;
 }
