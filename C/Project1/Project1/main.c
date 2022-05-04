@@ -2,10 +2,7 @@
 #define	_CRT_SECURE_NO_WARNINGS
 #endif
 
-
-#include <stdio.h>
-
-
+#include "BinaryTreeArray.h"
 
 void WhatBit(int input, char bitnum)	//  특정 비트번째가 1인지 아닌지
 {
@@ -39,7 +36,7 @@ int GetStrlen(const char input[])	//  문자열길이 구하기
 	
 	return count;
 }
-void strcat(char strDestination[], const char strSource[]) {	//  문자열 붙이기
+void strcat2(char strDestination[], const char strSource[]) {	//  문자열 붙이기
 	
 	int count_dst = GetStrlen(strDestination);
 	int count_src = GetStrlen(strSource);
@@ -50,7 +47,7 @@ void strcat(char strDestination[], const char strSource[]) {	//  문자열 붙이기
 	}	
 	return;
 }
-void strcpy(char strDestination[], const char strSource[])	//  문자열 복사하기
+void strcpy2(char strDestination[], const char strSource[])	//  문자열 복사하기
 {
 	int count_dst = GetStrlen(strDestination);
 	int count_src = GetStrlen(strSource);
@@ -271,9 +268,9 @@ void StructTEST(void) {
 		int y;
 
 	}DATA;
-	printf("%d\n", __LINE__);
-	printf("%d\n", __TIME__);
-	printf("%d\n", __DATE__);
+	// printf("%d\n", __LINE__);
+	//printf("%d\n", __TIME__);
+	//printf("%d\n", __DATE__);
 
 	//DATA d;
 
@@ -377,12 +374,94 @@ void LinkedList()
 		
 	PrintList(pNode);
 	DelList(&pNode, 2);
-	PrintList(pNode);
-
-
-	
+	PrintList(pNode);	
 }
+//
+//int g_po = 0;
+//void StackPush(char *pArray, int input) {
+//	*(pArray + g_po) = input;
+//	g_po++;
+//}
+//void PrintStack(char *pArray) {
+//	int i;
+//	printf("PrintStack : ");
+//	for (i = 0; i < g_po; i++)
+//		printf("%d ", *(pArray + i));
+//	printf("\n");
+//}
+//void StackPop(char *pArray) {
+//	*(pArray + g_po - 1) = 0;
+//	g_po--;
+//}
+//void Stack(void) {
+//
+//	char array[10] = {0,};
+//	StackPush(array, 1);
+//	StackPush(array, 2);
+//	PrintStack(array);
+//	StackPop(array);
+//	PrintStack(array);
+//	return;
+//}
+//
 
+void StackPush(int *pArray, int **pTop, int input) {
+	int *pT = NULL;
+	pT = *pTop;
+
+	*(pArray + *pT) = input;
+	(*pT)++;
+	*pTop = pT;
+}
+void StackPrint(int *pArray, int nowTop)
+{
+	int i = 0;
+	printf("PrintStack : ");
+	for (i = 0; i < nowTop; i++)
+		printf("%d ", *(pArray+i));
+	printf("\n");
+}
+void StackPop(int *pArray, int **pTop)
+{
+	int *pT = *pTop;
+	*(pArray + (*pT)) = 0;
+	*pT = *pT - 1 ;
+	*pTop = pT;
+}
+void Stack(void) {
+	int *pTop = NULL;
+	int nTop = 0;
+	pTop = &nTop;
+	int Array[10] = { 0, };
+
+	StackPush(Array, &pTop, 1);
+	StackPush(Array, &pTop, 2);
+	StackPrint(Array, nTop);
+	StackPop(Array, &pTop);
+	StackPrint(Array, nTop);
+
+	char a[4] = { 0x1,0x2,0x3,0x4 };
+	char *p = a;
+	*(short *)p = 0x1234;
+	printf("%x\n", *p);
+}
+void BinaryTreeArray(void)
+{
+	NODE n1 = MakeRoot('1');
+	NODE n2 = MakeLChild(n1, '2');
+	NODE n3 = MakeRChild(n1, '3');
+	NODE n4 = MakeLChild(n2, '4');
+	NODE n5 = MakeRChild(n2, '5');
+	NODE n6 = MakeLChild(n3, '6');
+	NODE n7 = MakeRChild(n3, '7');
+
+	PreOrder(n1);
+	printf("\n");
+	InOrder(n1);
+	printf("\n");
+	PostOrder(n1);
+	printf("\n");
+}
 
 int main(void)
 {
@@ -390,10 +469,10 @@ int main(void)
 	ByteToBit(65535, 16);
 	printf("\nGetStrlen = %d\n", GetStrlen("abc"));
 	char strDst[20] = "abc"; char strSrc[10] = "fff";
-	strcat(strDst, strSrc);
-	printf("strcat = %s\n", strDst);
-	strcpy(strDst, strSrc);
-	printf("strcpy = %s\n", strDst);
+	strcat2(strDst, strSrc);
+	printf("strcat2 = %s\n", strDst);
+	strcpy2(strDst, strSrc);
+	printf("strcpy2 = %s\n", strDst);
 	printf("g_init1 = %d\n", g_init1);
 	TF_const();
 	
@@ -417,6 +496,8 @@ int main(void)
 	StructTEST();
 	
 	LinkedList();
+	Stack();
+	BinaryTreeArray();
 
  	return 0;
 }
