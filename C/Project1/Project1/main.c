@@ -462,6 +462,77 @@ void BinaryTreeArray(void)
 	PostOrder(n1);
 	printf("\n");
 }
+void DoublePoint(void) {
+	unsigned char *p_limit_table = NULL;
+	unsigned char **p = NULL;
+
+	int age, age_step=3, member, temp, sum;	
+
+	p_limit_table = (unsigned char *)malloc(age_step);
+	if (NULL == p_limit_table) return;
+	
+	p_limit_table[0] = 3;
+	p_limit_table[1] = 2;
+	p_limit_table[2] = 1;
+
+	p = (unsigned char **)malloc(sizeof(unsigned char *) * age_step);
+
+
+	free(p);
+	free(p_limit_table);
+	return;
+
+}
+
+
+int foundMinifactor(int miniarray[][6], int _mini_size, int checkarray[], int select) {
+	int miniv = 1000000000;
+	int minpos = 0;
+	for (int i = 0; i < _mini_size; i++) {
+		if (0 == checkarray[i] && miniarray[select][i] < miniv) {
+			miniv = miniarray[select][i];
+			minpos = i;
+		}		
+	}
+	return minpos;
+}
+void Dijkstra(void)
+{	
+	int select = 0;
+	printf("\n");
+	scanf("%d", &select);
+	printf("\n");
+	int INF = 1000000000;
+	int initarray[6][6] = {
+		{0, 50, 45, 10, INF, INF},
+		{INF, 0, 10, 15, INF, INF},
+		{INF, INF, 0, INF, 30, INF},
+		{20, INF, INF, 0, 15, INF},
+		{INF, 20, 35, INF, 0, INF},
+		{INF, INF, INF, INF, 3, INF}
+	};
+	
+	int i, j;
+	int checkarray[6] = { 0, };
+	checkarray[select] = 1;			//	한번 체크한거라서 1:1 관계에서 다시 할 필요가 없으니까 
+	int minivalue = 0;
+
+	for (i = 0; i < 6 - 1; i++) {
+		minivalue = foundMinifactor(initarray, 6, checkarray, select);
+		printf("%d ", minivalue);
+		checkarray[minivalue] = 1;
+		for (j = 0; j < 6; j++) {
+			// 선택된 노드에서 각 노드로 바로 갈때보다 거쳐서 갈때 짧은지를 확인하기 위해 비교
+			if (0 == checkarray[j] && initarray[select][j] > initarray[select][minivalue] + initarray[minivalue][j])
+				initarray[select][j] = initarray[select][minivalue] + initarray[minivalue][j];
+		}
+
+	}
+	printf("\n");
+	for (i = 0; i < 6; i++)
+		printf("%d ", initarray[select][i]);
+
+}
 
 int main(void)
 {
@@ -498,6 +569,17 @@ int main(void)
 	LinkedList();
 	Stack();
 	BinaryTreeArray();
+	DoublePoint();
+	int *x;
+	int aa;
+	x = &aa;
+
+	int **y;
+	int *bb;
+	int cc;
+	bb = &cc;
+	y = &bb;
+	Dijkstra();
 
  	return 0;
 }
